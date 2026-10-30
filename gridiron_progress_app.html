@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#111827">
+<title>Gridiron Progress</title>
+<style>
+:root{--bg:#0b1220;--panel:#151f31;--panel2:#1d2a40;--text:#f3f6fb;--muted:#a9b7ca;--accent:#8ee3b5;--line:#30415b;--warn:#ffd27a}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(160deg,#0b1220,#111d30 60%,#0b1220);color:var(--text);font:16px system-ui,-apple-system,Segoe UI,sans-serif}
+main{max-width:850px;margin:auto;padding:22px 16px 60px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.eyebrow{color:var(--accent);font-weight:800;letter-spacing:.12em;font-size:.75rem}.title{font-size:2rem;font-weight:900;margin:3px 0}.sub{color:var(--muted);margin:0 0 18px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:17px;margin:14px 0;box-shadow:0 10px 28px #0002}
+h2{font-size:1.15rem;margin:0 0 12px}h3{font-size:1rem;margin:14px 0 7px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.stat{background:var(--panel2);padding:12px;border-radius:13px}.stat b{display:block;font-size:1.35rem}.stat span{color:var(--muted);font-size:.78rem}
+button{border:0;border-radius:12px;padding:12px 15px;font-weight:800;font-size:.95rem;background:var(--accent);color:#102019;cursor:pointer}button.secondary{background:var(--panel2);color:var(--text);border:1px solid var(--line)}button:disabled{opacity:.45;cursor:not-allowed}
+.tabs{display:flex;gap:8px;overflow:auto;margin:16px 0}.tabs button{white-space:nowrap}.tabs button.active{outline:2px solid var(--accent);background:#203c36;color:#d9ffea}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}.muted{color:var(--muted)}.pill{display:inline-block;padding:5px 9px;border-radius:99px;background:#24364a;color:#dce8f6;font-size:.78rem;font-weight:700}.done{color:var(--accent)}.exercise{padding:10px 0;border-bottom:1px solid var(--line)}.exercise:last-child{border:0}.exercise strong{display:block}.exercise small{color:var(--muted)}
+input,textarea{width:100%;background:#0e1726;border:1px solid var(--line);border-radius:10px;color:var(--text);padding:11px;font:inherit;margin:5px 0 10px}
+label{font-size:.86rem;color:var(--muted)}.checkline{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--line)}.checkline input{width:auto;margin:4px 0}
+.notice{background:#273247;border-left:4px solid var(--warn);padding:12px;border-radius:10px;color:#f4e7c8;margin:10px 0}
+.progress{height:9px;background:#26364b;border-radius:20px;overflow:hidden}.progress>div{height:100%;background:var(--accent);width:0}
+.daybtn{width:100%;text-align:left;background:var(--panel2);color:var(--text);border:1px solid var(--line);margin:5px 0}.daybtn.selected{border-color:var(--accent)}
+footer{color:var(--muted);font-size:.8rem;text-align:center;margin-top:25px}
+@media(max-width:520px){.stats{grid-template-columns:1fr 1fr}.title{font-size:1.7rem}}
+</style>
+</head>
+<body>
+<main>
+  <div class="top"><div><div class="eyebrow">CLASS OF 2029 • OFFSEASON</div><div class="title">GRIDIRON PROGRESS</div><p class="sub">Train with a plan. Log it when you finish. You control every step.</p></div><span class="pill">MANUAL CHECK-OFF</span></div>
+  <section class="card">
+    <div class="stats">
+      <div class="stat"><b id="completedCount">0</b><span>Workouts completed</span></div>
+      <div class="stat"><b id="streakCount">0</b><span>Test milestones logged</span></div>
+      <div class="stat"><b id="nextTest">40 yd</b><span>Next scheduled test</span></div>
+    </div>
+  </section>
+  <div class="tabs">
+    <button class="active" data-tab="today">Training</button>
+    <button class="secondary" data-tab="tests">Test schedule</button>
+    <button class="secondary" data-tab="log">Workout log</button>
+    <button class="secondary" data-tab="results">My results</button>
+  </div>
+  <section id="today">
+    <div class="card">
+      <div class="row"><h2>Weekly training plan</h2><span class="pill">Nothing auto-completes</span></div>
+      <p class="muted">Choose a day to see its workout. Mark it complete only after you actually finish.</p>
+      <div id="dayList"></div>
+    </div>
+    <div class="card" id="workoutCard">
+      <div class="row"><h2 id="workoutTitle">Monday • Lower strength</h2><span class="pill" id="workoutType">GYM</span></div>
+      <p class="muted" id="workoutFocus"></p>
+      <div id="exerciseList"></div>
+      <div class="notice" id="recoveryTip">After training: have a proper meal or snack with carbs and protein, drink water, and get good sleep.</div>
+      <div class="row"><button id="completeBtn">Mark workout completed</button><span class="muted" id="completionStatus">Not completed</span></div>
+    </div>
+  </section>
+  <section id="tests" hidden>
+    <div class="card"><h2>Three-week testing sequence</h2><p class="muted">Each test is seven days after the previous one. These are target dates; you can change them below. Keep testing days controlled, warmed up, and supervised by your coach.</p><div id="testList"></div></div>
+    <div class="card"><h2>Change a test date</h2>
+      <label for="testDate1">40-yard dash — Week 1</label><input type="date" id="testDate1">
+      <label for="testDate2">5-10-5 shuttle — Week 2</label><input type="date" id="testDate2">
+      <label for="testDate3">Bench press — Week 3</label><input type="date" id="testDate3">
+      <button id="saveDates">Save test dates</button>
+    </div>
+    <div class="card"><h2>Log a test result</h2>
+      <label for="resultTest">Test</label><select id="resultTest"><option>40-yard dash</option><option>5-10-5 shuttle</option><option>Bench press</option></select>
+      <label for="resultDate">Date completed</label><input type="date" id="resultDate">
+      <label for="resultValue">Result (example: 5.80 sec or 245 lb)</label><input id="resultValue" placeholder="Enter your result">
+      <label for="resultNotes">Notes (optional)</label><textarea id="resultNotes" rows="2" placeholder="Conditions, how it felt, coach notes..."></textarea>
+      <button id="saveResult">Save test result</button>
+    </div>
+  </section>
+  <section id="log" hidden><div class="card"><h2>Workout log</h2><p class="muted">Only workouts you manually check off appear as completed.</p><div id="logList"></div></div></section>
+  <section id="results" hidden><div class="card"><h2>My test results</h2><p class="muted">Track your progress over time. Retest under similar conditions when possible.</p><div id="resultsList"></div></div></section>
+  <footer>Your progress saves in this browser on this device. It does not sync automatically to other devices.</footer>
+</main>
+<script>
+const workouts=[
+ {day:"Monday",name:"Lower-body strength",type:"GYM",focus:"Build lower-body strength with controlled technique.",items:[["Squat","3 × 6"],["Romanian deadlift","3 × 8"],["Reverse lunge","2 × 8 each leg"],["Leg curl","2 × 10–12"],["Calf raise","2 × 12"],["Plank","3 × 30–45 sec"]],tip:"After lifting: eat a full meal with protein and carbohydrates, drink water, and give your legs time to recover."},
+ {day:"Tuesday",name:"Speed + defensive-line technique",type:"FIELD",focus:"Quality acceleration reps and clean technique. Stop if speed or form drops.",items:[["Warm-up and dynamic mobility","8–10 min"],["Wall-drive drill","2 × 5 each leg"],["10-yard accelerations","4 reps, full walk-back rest"],["20-yard accelerations","3 reps, full rest"],["Build-up runs","2 reps"],["DL stance and first-step practice","4–6 controlled reps"],["Lateral movement and pad-level work","3 short rounds"]],tip:"After field work: have a meal or snack with carbs and protein, hydrate, and recover. Keep technique drills non-contact unless your coach supervises."},
+ {day:"Wednesday",name:"Upper-body strength",type:"GYM",focus:"Upper-body strength while keeping every rep controlled.",items:[["Bench press","3 × 6"],["Chest-supported row","3 × 8–10"],["Lat pulldown","3 × 10"],["Incline dumbbell press","2 × 10"],["Lateral raise","2 × 12"],["Triceps pressdown","2 × 12"],["Farmer carry","2 × 25–30 yd"]],tip:"After lifting: eat and hydrate. If your shoulders or elbows feel painful, stop that movement and tell your coach."},
+ {day:"Thursday",name:"Recovery + mobility",type:"RECOVERY",focus:"Easy recovery day. This is not a day to make up missed hard workouts.",items:[["Easy walk","10–20 min"],["Gentle hip and ankle mobility","5–8 min"],["Easy upper-back and shoulder mobility","5 min"],["Relaxed breathing","2 min"]],tip:"Eat normally, hydrate, and prioritize sleep. Recovery is part of getting stronger."},
+ {day:"Friday",name:"Power + lower-body development",type:"GYM",focus:"Move explosively only when technique is sharp; use manageable loads.",items:[["Broad jump","3 × 3, reset between reps"],["Medicine-ball chest throw","3 × 5"],["Trap-bar deadlift","3 × 5"],["Step-up","2 × 8 each leg"],["Hip thrust","2 × 10"],["Pallof press","2 × 10 each side"]],tip:"After lifting: have a balanced meal, drink water, and avoid adding extra hard leg work."},
+ {day:"Saturday",name:"Agility + football movement",type:"FIELD",focus:"Practice movement quality and controlled conditioning.",items:[["Warm-up","8–10 min"],["Lateral shuffle","3 short reps each way"],["5-10-5 footwork practice","3–4 controlled reps"],["Forward/backward transitions","3 rounds"],["Cone cuts","3 rounds, controlled"],["Ball security and RB footwork","8–10 min"],["Easy intervals","4–6 rounds: 15 sec brisk / 45–60 sec walk"]],tip:"After training: eat, hydrate, and recover. Keep conditioning controlled; stop for dizziness, headache, unusual shortness of breath, or pain."},
+ {day:"Sunday",name:"Upper-body development",type:"GYM",focus:"Moderate upper-body volume. Keep 2–3 good reps in reserve.",items:[["Incline dumbbell press","3 × 8–10"],["Seated cable row","3 × 10"],["Machine chest press","2 × 10"],["Assisted pull-up or lat pulldown","2 × 8–10"],["Shoulder press","2 × 8"],["Hammer curl","2 × 12"],["Triceps extension","2 × 12"]],tip:"After training: eat a balanced meal, hydrate, and prepare for the next week. If you feel run-down, take the day easier."}
+];
+const today=new Date();const iso=d=>{const x=new Date(d);x.setMinutes(x.getMinutes()-x.getTimezoneOffset());return x.toISOString().slice(0,10)};
+const addDays=(date,n)=>{let d=new Date(date+"T12:00:00");d.setDate(d.getDate()+n);return iso(d)};
+const mondayOffset=(today.getDay()+6)%7;const firstTest=addDays(iso(today),7);
+let state=JSON.parse(localStorage.getItem("gridironProgress")||"{}");
+state.completed=state.completed||{};state.results=state.results||[];
+state.testDates=state.testDates||[firstTest,addDays(firstTest,7),addDays(firstTest,14)];
+let selected=state.selectedDay||0;
+function save(){localStorage.setItem("gridironProgress",JSON.stringify(state));renderAll()}
+function dateLabel(s){if(!s)return "Date not set";return new Date(s+"T12:00:00").toLocaleDateString(undefined,{month:"short",day:"numeric",year:"numeric"})}
+function renderStats(){document.getElementById("completedCount").textContent=Object.keys(state.completed).length;document.getElementById("streakCount").textContent=state.results.length;let idx=state.results.length>=3? "Done":(["40 yd","5-10-5","Bench"][state.results.length]);document.getElementById("nextTest").textContent=idx}
+function renderDays(){let el=document.getElementById("dayList");el.innerHTML="";workouts.forEach((w,i)=>{let b=document.createElement("button");b.className="daybtn"+(selected===i?" selected":"");let done=state.completed[w.day];b.innerHTML=`<span class="row"><strong>${w.day} • ${w.name}</strong><span>${done?"✓ Completed":"Not completed"}</span></span>`;b.onclick=()=>{selected=i;state.selectedDay=i;renderAll()};el.appendChild(b)})}
+function renderWorkout(){let w=workouts[selected];document.getElementById("workoutTitle").textContent=w.day+" • "+w.name;document.getElementById("workoutType").textContent=w.type;document.getElementById("workoutFocus").textContent=w.focus;document.getElementById("exerciseList").innerHTML=w.items.map(x=>`<div class="exercise"><strong>${x[0]}</strong><small>${x[1]}</small></div>`).join("");document.getElementById("recoveryTip").textContent=w.tip;let done=!!state.completed[w.day];document.getElementById("completeBtn").textContent=done?"Completed — undo check-off":"Mark workout completed";document.getElementById("completionStatus").textContent=done?"✓ Logged as completed":"Not completed";document.getElementById("completionStatus").className=done?"done":"muted"}
+document.getElementById("completeBtn").onclick=()=>{let day=workouts[selected].day;if(state.completed[day])delete state.completed[day];else state.completed[day]={date:iso(new Date())};save()};
+function renderTests(){let names=["40-yard dash","5-10-5 shuttle","Bench press"];document.getElementById("testList").innerHTML=names.map((n,i)=>`<div class="exercise"><div class="row"><strong>Week ${i+1}: ${n}</strong><span class="pill">${dateLabel(state.testDates[i])}</span></div><small>${i===0?"Test acceleration and sprint time.":i===1?"Test change of direction and agility.":"Test pressing strength with safe, coached technique."}</small></div>`).join("");state.testDates.forEach((d,i)=>document.getElementById("testDate"+(i+1)).value=d)}
+document.getElementById("saveDates").onclick=()=>{state.testDates=[1,2,3].map(i=>document.getElementById("testDate"+i).value||state.testDates[i-1]);save();alert("Test dates saved.")};
+document.getElementById("saveResult").onclick=()=>{let value=document.getElementById("resultValue").value.trim();if(!value){alert("Enter a result first.");return}state.results.push({test:document.getElementById("resultTest").value,date:document.getElementById("resultDate").value||iso(new Date()),value,notes:document.getElementById("resultNotes").value.trim()});document.getElementById("resultValue").value="";document.getElementById("resultNotes").value="";save()};
+function renderLog(){let entries=Object.entries(state.completed);document.getElementById("logList").innerHTML=entries.length?entries.map(([day,v])=>`<div class="exercise"><strong class="done">✓ ${day}</strong><small>Completed ${dateLabel(v.date)}</small></div>`).join(""):"<p class='muted'>No completed workouts yet. Choose a training day and check it off when you finish.</p>"}
+function renderResults(){document.getElementById("resultsList").innerHTML=state.results.length?state.results.slice().reverse().map(r=>`<div class="exercise"><div class="row"><strong>${r.test}</strong><span class="pill">${dateLabel(r.date)}</span></div><strong>${r.value}</strong>${r.notes?`<small>${r.notes}</small>`:""}</div>`).join(""):"<p class='muted'>No test results saved yet. Your first scheduled test is the 40-yard dash.</p>"}
+function renderAll(){renderStats();renderDays();renderWorkout();renderTests();renderLog();renderResults()}
+document.querySelectorAll("[data-tab]").forEach(btn=>btn.onclick=()=>{document.querySelectorAll("[data-tab]").forEach(x=>{x.classList.toggle("active",x===btn);x.classList.toggle("secondary",x!==btn)});["today","tests","log","results"].forEach(id=>document.getElementById(id).hidden=id!==btn.dataset.tab)});
+document.getElementById("resultDate").value=iso(new Date());renderAll();
+</script>
+</body></html>
