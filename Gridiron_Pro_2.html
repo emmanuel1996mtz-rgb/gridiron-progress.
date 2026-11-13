@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b0b0d">
+<title>Gridiron Pro | Class of 2029</title>
+<style>
+:root{--bg:#09090b;--panel:#151519;--panel2:#1d1d23;--red:#e32636;--red2:#ff4656;--text:#f5f5f6;--muted:#a5a5ad;--line:#303038;--green:#65d69a}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;line-height:1.5}
+header{padding:25px 18px 18px;background:linear-gradient(135deg,#21080d,#101014 65%);border-bottom:1px solid #54202a}
+.wrap{max-width:900px;margin:auto;padding:0 16px 50px}.eyebrow{font-size:11px;letter-spacing:2px;color:#ff7580;font-weight:800}
+h1{font-size:32px;line-height:1.05;margin:7px 0}h1 span{color:var(--red2)}.sub{color:#c4c4cb;font-size:13px}
+nav{display:flex;gap:8px;overflow:auto;padding:13px 0;position:sticky;top:0;background:#09090bf2;z-index:5}
+nav button,.btn{border:1px solid var(--line);background:var(--panel);color:var(--text);padding:10px 13px;border-radius:10px;font-weight:750;cursor:pointer;white-space:nowrap}
+nav button.active,.btn.primary{background:var(--red);border-color:var(--red);color:white}
+section{display:none}section.active{display:block}.card{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:16px;margin:12px 0}
+h2{font-size:21px;margin:8px 0 12px}h3{font-size:16px;margin:5px 0 8px}.muted{color:var(--muted)}.small{font-size:12px;color:var(--muted)}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.stat{background:var(--panel2);padding:13px;border-radius:12px}.stat b{display:block;font-size:23px;color:var(--red2)}
+.progress{height:9px;background:#303038;border-radius:99px;overflow:hidden;margin:9px 0}.progress div{height:100%;background:var(--red);width:0;transition:.2s}
+.day{display:flex;justify-content:space-between;align-items:center;gap:10px}.tag{font-size:10px;font-weight:800;letter-spacing:.8px;color:#ff8b94;background:#3a151b;padding:4px 8px;border-radius:99px}
+.exercise{padding:12px 0;border-top:1px solid var(--line)}.exercise:first-of-type{border-top:0}.exercise label{display:flex;gap:10px;align-items:flex-start;cursor:pointer}.exercise input{accent-color:var(--red);width:18px;height:18px;margin-top:3px;flex-shrink:0}
+.exercise strong{display:block}.exercise em{display:block;color:var(--muted);font-style:normal;font-size:12px;margin-top:3px}
+select,input[type=text],input[type=number],textarea{width:100%;padding:11px;border:1px solid var(--line);background:#0f0f13;color:var(--text);border-radius:9px;margin:5px 0 12px}
+button:focus,input:focus,select:focus{outline:2px solid #ff6471;outline-offset:2px}
+.btn{margin:4px 4px 4px 0}.btn.secondary{background:var(--panel2)}.notice{border-left:3px solid var(--red);padding:10px 12px;background:#201216;border-radius:8px;font-size:13px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}.hidden{display:none}
+footer{text-align:center;color:var(--muted);font-size:11px;padding:20px}
+@media(min-width:650px){.stats{grid-template-columns:repeat(4,1fr)}.two{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+<div class="eyebrow">CLASS OF 2029 • DEFENSIVE LINE DEVELOPMENT</div>
+<h1>GRIDIRON <span>PRO</span></h1>
+<div class="sub">DT FIRST. FASTER FEET. BETTER ENGINE. MORE EXPLOSIVE.</div>
+</div></header>
+<div class="wrap">
+<nav>
+<button class="active" data-tab="home">Dashboard</button>
+<button data-tab="workouts">Workouts</button>
+<button data-tab="tests">Performance</button>
+<button data-tab="log">Training log</button>
+<button data-tab="guide">Field guide</button>
+</nav>
+
+<section id="home" class="active">
+<div class="card">
+<div class="day"><div><div class="eyebrow">YOUR DEVELOPMENT PLAN</div><h2>Build the complete DT</h2></div><span class="tag">DT PRIORITY</span></div>
+<p class="muted">Five focused training days each week. Two recovery days. Choose the gym, park, backyard or bodyweight option based on what you have available.</p>
+<div class="stats">
+<div class="stat"><b id="weekDone">0/5</b><span class="small">Training days done</span></div>
+<div class="stat"><b id="taskDone">0%</b><span class="small">Weekly session tasks</span></div>
+<div class="stat"><b>5</b><span class="small">Training days</span></div>
+<div class="stat"><b>2</b><span class="small">Recovery days</span></div>
+</div>
+<div class="progress"><div id="weekBar"></div></div>
+<p class="small">Progress saves in this browser on this device. It does not automatically sync to your iPhone.</p>
+</div>
+<div class="card"><h3>Weekly priorities</h3>
+<div class="exercise"><strong>1. Speed & acceleration</strong><em>Improve your first 10 yards and sprint mechanics.</em></div>
+<div class="exercise"><strong>2. Conditioning</strong><em>Build repeat-effort stamina without turning every session into a max-effort test.</em></div>
+<div class="exercise"><strong>3. Explosiveness & agility</strong><em>Develop a powerful first step, controlled cuts and balance.</em></div>
+<div class="exercise"><strong>4. Defensive tackle technique</strong><em>Stance, get-off, hand placement, block recognition and leverage.</em></div>
+<div class="exercise"><strong>5. Strength & athletic development</strong><em>Build total-body strength with sound technique and recovery.</em></div>
+</div>
+<div class="card"><h3>Today’s session</h3><p class="muted" id="todayText">Choose a workout day in the Workouts tab.</p><button class="btn primary" onclick="showTab('workouts')">Open workouts</button></div>
+<div class="notice">Train hard with good technique, not through pain. Stop for dizziness, headache, chest pain or unusual shortness of breath and tell a trusted adult/coach. Follow your coach’s plan and get medical clearance when needed.</div>
+</section>
+
+<section id="workouts">
+<h2>Weekly training plan</h2>
+<p class="muted">Sessions are designed for about 45–70 minutes including warm-up and cooldown. Start with the bodyweight/outdoor version when equipment is unavailable. Do not try to make every day an all-out day.</p>
+<label class="small" for="environment">What equipment do you have today?</label>
+<select id="environment" onchange="renderWorkout()">
+<option value="body">Bodyweight only • park/backyard</option>
+<option value="gym">Full gym available</option>
+<option value="field">Park/field • open space</option>
+</select>
+<div id="workoutList"></div>
+<div class="notice">Speed work should be high quality with full recovery between runs. If sprint form slows down, end the fast reps. Avoid hard sprinting on slippery, uneven or crowded ground.</div>
+</section>
+
+<section id="tests">
+<h2>Performance tracker</h2>
+<p class="muted">Record a test only when rested and supervised. Re-test every 4–6 weeks, not every workout.</p>
+<div class="card">
+<label>40-yard dash (seconds)</label><input id="forty" type="number" step="0.01" placeholder="Example: 5.80">
+<label>5-10-5 shuttle (seconds)</label><input id="shuttle" type="number" step="0.01" placeholder="Enter your result">
+<label>Bench press (lb)</label><input id="bench" type="number" placeholder="Enter a safe, coached result">
+<label>Notes (surface, weather, how you felt)</label><textarea id="testNotes" rows="3" placeholder="Add context to your test..."></textarea>
+<button class="btn primary" onclick="saveTest()">Save performance test</button>
+</div>
+<div class="card"><h3>Latest recorded test</h3><div id="latestTest" class="muted">No test saved yet.</div></div>
+</section>
+
+<section id="log">
+<h2>Training log</h2>
+<div class="card">
+<label>Session / day</label><input id="logName" type="text" placeholder="Example: Day 1 — Acceleration">
+<label>How did it feel?</label><select id="effort"><option>Good — controlled</option><option>Moderate — needed more rest</option><option>Tough — reduce next session</option><option>Stopped due to discomfort</option></select>
+<label>Notes</label><textarea id="logNotes" rows="3" placeholder="What went well? What needs work?"></textarea>
+<button class="btn primary" onclick="saveLog()">Save session note</button>
+</div>
+<div class="card"><h3>Previous entries</h3><div id="logEntries" class="muted">No entries yet.</div></div>
+<button class="btn secondary" onclick="exportData()">Export my progress</button>
+<button class="btn secondary" onclick="resetWeek()">Reset weekly checkmarks</button>
+</section>
+
+<section id="guide">
+<h2>Field guide</h2>
+<div class="card"><h3>Warm-up before every session</h3>
+<ul><li>3–5 minutes easy walk or jog.</li><li>Leg swings, arm circles and ankle mobility.</li><li>Marching, skips and controlled bodyweight squats.</li><li>Two or three gradual build-up runs before faster running.</li></ul>
+</div>
+<div class="card"><h3>DT technique cues</h3>
+<ul><li><b>Stance:</b> balanced, comfortable base; eyes up.</li><li><b>Get-off:</b> react to the ball movement; stay under control.</li><li><b>Hands:</b> strike with hands inside and elbows active.</li><li><b>Leverage:</b> keep a strong base; don't stand straight up.</li><li><b>Finish:</b> disengage under control and pursue the play.</li></ul>
+<p class="small">Practice contact technique only with a qualified coach, proper equipment and safe supervision.</p>
+</div>
+<div class="card"><h3>Recovery basics</h3>
+<ul><li>Keep both recovery days genuinely easier.</li><li>Eat regular meals and snacks; include protein, carbohydrates, fruit/vegetables and fluids.</li><li>Drink water throughout the day; use extra fluids during hot, sweaty sessions.</li><li>For teens, aim for 8–10 hours of sleep.</li><li>Tell a parent/guardian and coach if you feel unusually exhausted or unwell.</li></ul>
+</div>
+<div class="card"><h3>Weekly structure</h3>
+<p><b>Day 1:</b> Acceleration + lower-body strength</p>
+<p><b>Day 2:</b> Conditioning + DT movement/technique</p>
+<p><b>Day 3:</b> Recovery / mobility</p>
+<p><b>Day 4:</b> Explosiveness + upper-body strength</p>
+<p><b>Day 5:</b> Agility + repeat-effort conditioning</p>
+<p><b>Day 6:</b> DT technique + full-body athletic work</p>
+<p><b>Day 7:</b> Recovery</p>
+<p class="small">If your football team has practice or a hard game, count that workload and reduce or replace the matching session. Don't stack hard sessions just to complete every box.</p>
+</div>
+</section>
+<footer>GRIDIRON PRO • CLASS OF 2029 • Train smart. Stack good days.</footer>
+</div>
+<script>
+const plans=[
+{day:"DAY 1",name:"Acceleration + lower-body strength",tag:"SPEED",body:[
+["Warm-up","8–10 min","Easy movement, leg swings, marching and gradual build-ups."],
+["Acceleration","4–6 × 10 yards","Fast but smooth starts; walk back and fully recover."],
+["Broad jump practice","3 × 3","Stick each landing softly; stop if landings get sloppy."],
+["Split squat","2–3 × 8 each leg","Bodyweight, controlled range; hold support if needed."],
+["Glute bridge","3 × 12","Pause briefly at the top."],
+["Calf raise","2 × 12","Controlled reps; finish with easy walking."]
+],gym:[
+["Warm-up","8–10 min","Dynamic warm-up and gradual build-ups."],
+["Acceleration","4–6 × 10 yards","Full recovery; quality over quantity."],
+["Squat variation","3 × 5–8","Light-to-moderate, coached technique; no max attempts."],
+["Romanian deadlift","3 × 8","Controlled hinge with a manageable load."],
+["Split squat","2 × 8 each leg","Stable and controlled."],
+["Core carry or plank","3 rounds","Choose a safe load or 20–30 second plank."]
+]},
+{day:"DAY 2",name:"Conditioning + DT movement",tag:"ENGINE",body:[
+["Warm-up","8 min","Easy walk/jog and mobility."],
+["Tempo intervals","6–8 rounds","20 sec comfortable run, 70 sec walk; conversational pace."],
+["Lateral shuffle","4 × 10 yards each way","Stay balanced; use a clear, flat surface."],
+["Bear crawl","3 × 10 yards","Slow controlled movement; stop if form breaks."],
+["Push-up","2–3 × 6–12","Use an incline if needed; leave reps in reserve."],
+["Cool down","5 min","Walk and easy mobility."]
+],gym:[
+["Warm-up","8 min","Easy bike or treadmill and mobility."],
+["Bike intervals","8 rounds","20 sec steady-hard, 70 sec easy."],
+["Lateral movement","4 × 10 yards","Controlled shuffle; no sharp uncontrolled cuts."],
+["Cable row","3 × 10","Smooth reps."],
+["Push-up","2–3 × 8–12","Quality reps."],
+["Cool down","5 min","Easy movement."]
+]},
+{day:"DAY 3",name:"Recovery + mobility",tag:"RECOVERY",body:[
+["Easy walk","15–25 min","Comfortable pace; you should be able to talk."],
+["Hip and ankle mobility","8 min","Gentle, pain-free range."],
+["Thoracic rotations","2 × 8 each side","Move slowly."],
+["Easy breathing","2 min","Relax and reset."]
+],gym:[
+["Easy bike or walk","15–20 min","Comfortable recovery pace."],
+["Mobility","10 min","Hips, ankles, upper back; no forcing stretches."]
+]},
+{day:"DAY 4",name:"Explosiveness + upper-body strength",tag:"POWER",body:[
+["Warm-up","8–10 min","Dynamic movement."],
+["Vertical jump practice","3 × 3","Jump with control and land softly; full rest."],
+["Push-up","3 × 6–12","Use an incline if needed."],
+["Pike push-up or wall push","2 × 6–8","Controlled shoulder work; choose an easy variation."],
+["Backpack row","3 × 10","Only use a light, secure backpack; smooth reps."],
+["Dead bug","3 × 8 each side","Keep lower back controlled."]
+],gym:[
+["Warm-up","8–10 min","Dynamic warm-up."],
+["Medicine-ball chest pass","3 × 4","Light ball, supervised, explosive but controlled."],
+["Bench press","3 × 5–8","Coached, submaximal load; use spotter/safeties."],
+["Row variation","3 × 8–10","Controlled."],
+["Dumbbell shoulder press","2 × 8","Manageable load, no grinding."],
+["Dead bug","3 × 8 each side","Controlled."]
+]},
+{day:"DAY 5",name:"Agility + repeat-effort conditioning",tag:"AGILITY",body:[
+["Warm-up","8 min","Dynamic movement."],
+["Deceleration practice","4 × 5 yards","Build up gently, then slow down under control."],
+["Shuttle footwork","4 rounds","Move between 3 markers 3–5 yards apart at moderate pace."],
+["Intervals","6 rounds","15 sec moderate effort, 75 sec walk."],
+["Side plank","2 × 20 sec each side","Keep body aligned."],
+["Cool down","5 min","Walk and mobility."]
+],gym:[
+["Warm-up","8 min","Dynamic movement."],
+["Deceleration practice","4 × 5 yards","Controlled stopping mechanics."],
+["Shuttle footwork","4 rounds","Moderate pace, full control."],
+["Bike intervals","6 rounds","15 sec moderate-hard, 75 sec easy."],
+["Side plank","2 × 20 sec each side","Keep body aligned."]
+]},
+{day:"DAY 6",name:"DT technique + full-body athletic work",tag:"DT SKILLS",body:[
+["Warm-up","8 min","Easy movement and mobility."],
+["Stance and first-step reps","5 × 3","Practice balanced stance and quick first movement; no contact."],
+["Hand placement shadow reps","3 × 6","Hands inside, elbows active; no partner contact."],
+["Bear crawl","3 × 10 yards","Controlled trunk position."],
+["Reverse lunge","2 × 8 each leg","Bodyweight, stable reps."],
+["Optional RB footwork","5 min","Ball security stance and controlled footwork; secondary focus."]
+],gym:[
+["Warm-up","8 min","Dynamic movement."],
+["Stance and first-step reps","5 × 3","No-contact technique reps."],
+["Trap-bar deadlift or hinge","3 × 5","Only if coached and technically sound; moderate load."],
+["Lat pulldown","3 × 8–10","Controlled."],
+["Reverse lunge","2 × 8 each leg","Stable reps."],
+["Optional RB footwork","5 min","Ball security and controlled footwork."]
+]}
+];
+let checks=JSON.parse(localStorage.getItem("gp_checks")||"{}");
+function showTab(id){document.querySelectorAll("section").forEach(s=>s.classList.toggle("active",s.id===id));document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("active",b.dataset.tab===id));if(id==="workouts")renderWorkout();if(id==="log")renderLogs();if(id==="tests")renderTest();window.scrollTo({top:0,behavior:"smooth"})}
+document.querySelectorAll("nav button").forEach(b=>b.addEventListener("click",()=>showTab(b.dataset.tab)));
+function renderWorkout(){let env=document.getElementById("environment").value;let root=document.getElementById("workoutList");root.innerHTML="";plans.forEach((p,i)=>{let items=p[env]||p.body;let done=items.filter((_,j)=>checks[i+"-"+j]).length;let card=document.createElement("div");card.className="card";let head=document.createElement("div");head.className="day";head.innerHTML=`<div><span class="tag">${p.tag}</span><h3>${p.day} — ${p.name}</h3><div class="small">${done}/${items.length} tasks complete</div></div>`;card.appendChild(head);let bar=document.createElement("div");bar.className="progress";bar.innerHTML=`<div style="width:${done/items.length*100}%"></div>`;card.appendChild(bar);items.forEach((it,j)=>{let row=document.createElement("div");row.className="exercise";let label=document.createElement("label");let cb=document.createElement("input");cb.type="checkbox";cb.checked=!!checks[i+"-"+j];cb.addEventListener("change",()=>{checks[i+"-"+j]=cb.checked;localStorage.setItem("gp_checks",JSON.stringify(checks));renderWorkout();updateDashboard()});let txt=document.createElement("div");txt.innerHTML=`<strong>${it[0]} <span class="small">• ${it[1]}</span></strong><em>${it[2]}</em>`;label.append(cb,txt);row.appendChild(label);card.appendChild(row)});root.appendChild(card)})}
+function updateDashboard(){let total=0,done=0,days=0;[0,1,3,4,5].forEach(i=>{let n=Object.keys(checks).filter(k=>k.startsWith(i+"-")&&checks[k]).length;let count=(plans[i].body||[]).length;total+=count;done+=n;if(n>=count)days++});document.getElementById("weekDone").textContent=days+"/5";document.getElementById("taskDone").textContent=Math.round(done/total*100)+"%";document.getElementById("weekBar").style.width=(done/total*100)+"%";let d=new Date().getDay();let ix=d===0?6:d-1;document.getElementById("todayText").textContent=plans[ix]?.name||"Choose a workout day."}
+function saveTest(){let t={date:new Date().toLocaleDateString(),forty:forty.value,shuttle:shuttle.value,bench:bench.value,notes:testNotes.value};localStorage.setItem("gp_test",JSON.stringify(t));renderTest();alert("Performance test saved on this device.");}
+function renderTest(){let t=JSON.parse(localStorage.getItem("gp_test")||"null");document.getElementById("latestTest").textContent=t?`${t.date} • 40 yd: ${t.forty||"—"} sec • 5-10-5: ${t.shuttle||"—"} sec • Bench: ${t.bench||"—"} lb • ${t.notes||""}`:"No test saved yet."}
+function saveLog(){let a=JSON.parse(localStorage.getItem("gp_logs")||"[]");a.unshift({date:new Date().toLocaleString(),name:logName.value||"Training session",effort:effort.value,notes:logNotes.value});localStorage.setItem("gp_logs",JSON.stringify(a));logName.value="";logNotes.value="";renderLogs();alert("Session note saved.");}
+function renderLogs(){let a=JSON.parse(localStorage.getItem("gp_logs")||"[]");document.getElementById("logEntries").innerHTML=a.length?a.map(x=>`<div class="exercise"><strong>${escapeHTML(x.name)}</strong><em>${escapeHTML(x.date)} • ${escapeHTML(x.effort)}</em><div class="small">${escapeHTML(x.notes)}</div></div>`).join(""):"No entries yet."}
+function escapeHTML(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function exportData(){let data={checks,tests:localStorage.getItem("gp_test"),logs:localStorage.getItem("gp_logs")};let blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});let a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="gridiron-pro-progress.json";a.click();URL.revokeObjectURL(a.href)}
+function resetWeek(){if(confirm("Reset this week's workout checkmarks? Your test results and training log will stay.")){checks={};localStorage.setItem("gp_checks","{}");renderWorkout();updateDashboard()}}
+renderWorkout();updateDashboard();renderTest();renderLogs();
+</script>
+</body></html>
